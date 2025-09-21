@@ -122,7 +122,7 @@ function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  return Number(String(value).at(-1));
+  return value % 10;
 }
 
 /**
@@ -262,7 +262,7 @@ function getFibonacciNumber(/* index */) {
  *   1  => 1
  */
 function getSumToN(n) {
-  const arr = Array.from({ length: n + 1 }, (el, i) => i + 1);
+  const arr = Array.from({ length: n }, (el, i) => i + 1);
   return arr.reduce((acc, item) => acc + item, 0);
 }
 
@@ -369,7 +369,7 @@ function toFixed(/* number, fractionDigits */) {
  * 12.345, 4   => '12.35'
  */
 function toPrecision(number, precision) {
-  return number.toFixed(precision);
+  return Number(number.toFixed(precision));
 }
 
 /**
@@ -403,8 +403,8 @@ function getNumberValue(/* number */) {
  */
 function isNumber(number) {
   return (
-    (typeof number === 'number' && !Number.isNaN(number)) ||
-    number instanceof Number
+    (typeof number === 'number' && Number.isFinite(number)) ||
+    (number instanceof Number && Number.isFinite(number.valueOf()))
   );
 }
 
@@ -434,7 +434,7 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
-  return parseFloat(str);
+  return Number(str);
 }
 
 /**
@@ -452,7 +452,7 @@ function getFloatOnString(str) {
  * '10', 8              => 8
  */
 function getIntegerOnString(str, base) {
-  return parseFloat(str, base);
+  return parseInt(str, base);
 }
 
 /**
